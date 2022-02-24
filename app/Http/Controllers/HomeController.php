@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Companie;
+use Illuminate\Support\Facades\DB; 
 
 class HomeController extends Controller
 {
@@ -24,24 +26,41 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $Products = Product::all();
-        return view('mypage', ['Products' => $Products]);
-    }
+        $products = DB::table('companies')
+        ->join('products', 'companies.id', '=', 'products.company_id')->get();
+        // dd($products);
+
+        return view('mypage', ['Products' => $products]);
+
+}
+
+        
+
+
     
     public function crate(Request $request)
     {
-        // dd($request);
-        $atai = $request->all();
-
+        $input = $request->all();
+    
+        
         \DB::beginTransaction();
         try {
             // 商品を登録
-            Product::crate($atai);
+            Product::create($input);
             \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
+  
+       } 
+        
+        catch(\Throwable $e) {
+        //    \DB::rollback();
+        //     abort(500);
         }
         return redirect(route('mypage'));
+
+        
     }
+   
+    
+   
 }
+

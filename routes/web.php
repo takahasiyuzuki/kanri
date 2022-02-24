@@ -25,7 +25,38 @@ Auth::routes();
 
 //Auth::routes();
 
+// mypageのルート
 Route::get('/home', 'HomeController@index')->name('mypage');
-Route::post('/crate', 'HomeController@crate')->name('crate');
+Route::get('/mypage/crate', 'HomeController@crate')->name('crate');
+Route::post('/mypage/crate', 'HomeController@crate')->name('crate');
 
-//Route::get('bbs', 'PostsController@index');
+// mypage2のルート
+Route::get('/mypage2', 'MypagesController@mypage2')->name('mypage2');
+Route::get('/crate', 'MypagesController@crate')->name('crate');
+Route::post('/crate', 'MypagesController@crate')->name('crate');
+Route::get('/mypage', 'HomeController@index')->name('mypage');
+
+// mypage3のルート
+Route::get('/mypage3', 'MypagesController@mypage3')->name('mypage2');
+Route::get('/crate', 'MypagesController@crate')->name('crate');
+Route::post('/crate', 'MypagesController@crate')->name('crate');
+Route::get('/mypage', 'HomeController@index')->name('mypage');
+
+// mypage4のルート
+Route::get('/mypage4', 'MypagesController@mypage4')->name('mypage4');
+Route::get('/crate', 'MypagesController@crate')->name('crate');
+Route::post('/crate', 'MypagesController@crate')->name('crate');
+Route::get('/mypage', 'HomeController@index')->name('mypage');
+
+// 編集
+Route::get('/edit/{id}', 'MypagesController@showEdit')->name('edit');
+Route::post('/update', 'MypagesController@exeUpdate')->name('update');
+
+// 削除
+Route::post('/delete/{id}', 'MypagesController@exeDelete')->name('delete');
+
+//検索
+Route::get('/search', 'MypagesController@search')->name('search');
+Route::post('/search', 'MypagesController@search')->name('search');
+
+//Auth::routes();

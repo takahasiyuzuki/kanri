@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>一覧</title>
+<title>詳細</title>
 <style>
 #wrapSampleForm {
     width: 500px;
@@ -52,50 +52,42 @@
 <div id="wrapSampleForm">
 <form id="sampleForm" method="post" action="{{ route('crate') }}">
  @csrf
-</form>
-
-<form  action="{{ url('/search')}}", method="get">
-<!-- {{ csrf_field() }}  -->
-<input name="keyword" type="text" placeholder="検索" class="form-mcontrol " value= "{{ $keyword ?? '' }}">
-<select name="company_name">
-                <option value="{{ $com ?? '' }}" selected>商品</option>
-                <option>文字</option>
-                <option>製品</option>
-            </select>
-<button type="submit" >検索</button>
+        
 </form>
 
 <div class="mypage2">
-<a href="{{ url('/mypage2') }}">新規登録</a>
+<a href="{{ url('/mypage2') }}">戻る</a>
+</div>
+
+<div class="mypage4">
+<a href="{{ url('/mypage4') }}">商品情報編集</a>
 </div>
 
 </div>
 <table id="sampleTable">
     <tr>
+        <th id="tableId">ID</th>
         <th id="tableName">商品名</th>
         <th id="tableArea">メーカー</th>
         <th id="tableEn">価格</th>
 		<th id="tableZaiko">在庫数</th>
         <th id="tableComent">コメント</th>
-	    <th id="tableGazou">画像</th>
-        <th id="tableSakujyo">削除</th> 
-        
+	    <th id="tableGazou">画像</th> 
 		
     </tr>
     @foreach ($Products as $lalaproduct)
     <tbody>
+        <td>{{ $lalaproduct->id }}</td>
         <td>{{ $lalaproduct->product_name }}</td>
         <td>{{ $lalaproduct->company_id }}</td>
         <td>{{ $lalaproduct->price }}</td>
         <td>{{ $lalaproduct->stock }}</td>
         <td>{{ $lalaproduct->comment }}</td>
         <td>{{ $lalaproduct->img_path }}</td>
-        <form method="POST" action="{{ route('delete', $lalaproduct->id) }}">
-        @csrf
-        <td><button type="submit" class="btn btn-primary" onclick=>削除</button></td>
     </tbody>
     @endforeach
     </table>
+
 
 
 </body>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>一覧</title>
+<title>登録</title>
 <style>
 #wrapSampleForm {
     width: 500px;
@@ -49,25 +49,40 @@
 <body>
 
 
-<div id="wrapSampleForm">
-<form id="sampleForm" method="post" action="{{ route('crate') }}">
- @csrf
-</form>
-
-<form  action="{{ url('/search')}}", method="get">
-<!-- {{ csrf_field() }}  -->
-<input name="keyword" type="text" placeholder="検索" class="form-mcontrol " value= "{{ $keyword ?? '' }}">
-<select name="company_name">
-                <option value="{{ $com ?? '' }}" selected>商品</option>
-                <option>文字</option>
-                <option>製品</option>
+	<div id="wrapSampleForm">
+    <form id="sampleForm" method="post" action="{{ route('crate') }}">
+        @csrf
+        【入力欄】
+        <br>
+        商品名：<input type="text" name="product_name">
+        <br />
+        メーカー：
+            <select name="company_id">
+                <option value="1" selected>1</option>
+                <option>2</option>
+                <option>3</option>
             </select>
-<button type="submit" >検索</button>
+        <br />
+        価格：<input type="text" name="price">
+        <br />
+		在庫数：<input type="text" name="stock">
+		<br />
+        コメント：<input name="comment">コメント</textarea>
+        <br />
+        画像:<input type="file" name="img_path">
+        <br />
+    <!-- <button onclick="appendToTable()" type="submit">追加</button> -->
+    <button  type="submit">追加</button>
 </form>
 
-<div class="mypage2">
-<a href="{{ url('/mypage2') }}">新規登録</a>
+<div class="mypage">
+<a href="{{ url('/mypage') }}">戻る</a>
 </div>
+
+<div class="mypage3">
+<a href="{{ url('/mypage3') }}">商品情報詳細画面</a>
+</div>
+
 
 </div>
 <table id="sampleTable">
@@ -77,9 +92,7 @@
         <th id="tableEn">価格</th>
 		<th id="tableZaiko">在庫数</th>
         <th id="tableComent">コメント</th>
-	    <th id="tableGazou">画像</th>
-        <th id="tableSakujyo">削除</th> 
-        
+	    <th id="tableGazou">画像</th> 
 		
     </tr>
     @foreach ($Products as $lalaproduct)
@@ -90,12 +103,10 @@
         <td>{{ $lalaproduct->stock }}</td>
         <td>{{ $lalaproduct->comment }}</td>
         <td>{{ $lalaproduct->img_path }}</td>
-        <form method="POST" action="{{ route('delete', $lalaproduct->id) }}">
-        @csrf
-        <td><button type="submit" class="btn btn-primary" onclick=>削除</button></td>
+    
     </tbody>
     @endforeach
-    </table>
+</table>
 
 
 </body>
